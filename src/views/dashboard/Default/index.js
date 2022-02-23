@@ -16,6 +16,7 @@ import Popupfrom from '../Mui/Popupfrom';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import NavigationIcon from '@mui/icons-material/Navigation';
+import CardF from '../Mui/Card';
 
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
@@ -50,9 +51,9 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
-                    {/* <Grid item xs={12} md={8}>
-                        <TotalGrowthBarChart isLoading={isLoading} />
-                    </Grid> */}
+                    <Grid item xs={12} md={4}>
+                        < CardF  />
+                    </Grid>
                     {/* <Grid item xs={12} md={4}>
                         <PopularCard isLoading={isLoading} />
                     </Grid> */}

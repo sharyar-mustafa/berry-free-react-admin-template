@@ -1,21 +1,30 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Fab from '@mui/material/Fab';
 import NavigationIcon from '@mui/icons-material/Navigation';
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { getDatabase, set, ref, push, onValue, child, get } from '../../../Firebase';
 
 
 
 export default function FormDialog() {
+    const [state,setState] = React.useState({})
+
+    useEffect(() => {
+        const dbRef = ref(getDatabase());
+        onValue(child(dbRef, `packages/`), (snapshot) => {
+            console.log(snapshot.val());
+            snapshot.exists() && setState(snapshot.val())
+        })
+    }, [])
+
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -25,62 +34,35 @@ export default function FormDialog() {
     const handleClose = () => {
         setOpen(false);
     };
-     
+
     const formik = useFormik({
         initialValues: {
-          name:'',  
-          PakagePrice: "",
-          packageDescription: "",
-   
+            name: '',
+            PakagePrice: "",
+            packageDescription: "",
+
         },
         onSubmit: async (values) => {
-          console.log("23q343 run ");
-          let obj = {
-            name:values.name,
-            PakagePrice: values.PakagePrice,
-            packageDescription: values.packageDescription,
-          };
-          const config = {
-            method: "post",
-            url: "/leads",
-            withCredentials: true,
-            data: obj,
-          };
-          await axios(config)
-            .then((res) => {
-              if (res.data.message === "Data Create Sucessfully") {
-                setMSG("Lead Created Sucessfully");
-                setTimeout(() => {
-                  setValues();
-                  //   setLoading(false);
-                  onClose();
-                }, 1000);
-              } else {
-                setError(true);
-                setMSG(res.data.message);
-                setLoading(false);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
+            console.log(values);
+            handleClose();
+            const db = getDatabase();
+            push(ref(db, 'packages'), {
+                name: values.name,
+                PakagePrice: values.PakagePrice,
+                packageDescription: values.packageDescription,
             });
-        },
-      });
-      const setValues = () => {
+
+
+        }
+    });
+    const setValues = () => {
         formik.setValues({
-          name:'',
-          PakagePrice: "",
-          packageDescription: "",
-        
+            name: '',
+            PakagePrice: "",
+            packageDescription: "",
+
         });
-      };
-
-
-
-
-
-
-    
+    };
 
     return (
         <div>
@@ -89,52 +71,66 @@ export default function FormDialog() {
                 <NavigationIcon sx={{ mr: 1 }} />
                 ADD PRODUCT
             </Fab>
-           
+
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Subscribe</DialogTitle>
-                <DialogContent>
-                    {/* <DialogContentText>
+                <form onSubmit={formik.handleSubmit} method="post">
+                    <DialogContent>
+                        {/* <DialogContentText>
                         To subscribe to this website, please enter your email address here. We
                         will send updates occasionally.
                     </DialogContentText> */}
-                    <form onSubmit={formik.handleSubmit} method="post">
-                    <TextField
-                        // autoFocus
-                        value={formik.values.name}
-                        margin="dense"
-                        id="name"
-                        label="Package Name"
-                        type="email"
-                        fullWidth
-                        variant="filled"
-                    />
-                    <TextField
-                      value={formik.values.PakagePrice}
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Package Price"
-                        type="number"
-                        fullWidth
-                        variant="filled"
-                    />
-                    <TextField
-                      value={formik.values.packageDescription}
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="package Description"
-                        type="email"
-                        fullWidth
-                        variant="filled"
-                    />
-                     </form>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
-                </DialogActions>
+                    {
+                        Array.from(Object.entries(state)).map(([key, value]) => (
+                                <h1>{value.name}</h1>
+                        ))
+                    }
+                        <TextField
+                            // autoFocus
+                            value={formik.values.name}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            margin="dense"
+                            id="name"
+                            label="Package Name"
+                            type="text"
+                            fullWidth
+                            variant="filled"
+                        />
+                        <TextField
+                            value={formik.values.PakagePrice}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            autoFocus
+                            margin="dense"
+                            id="PakagePrice"
+                            label="Package Price"
+                            type="number"
+                            fullWidth
+                            variant="filled"
+                        />
+                        <TextField
+                            value={formik.values.packageDescription}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            autoFocus
+                            margin="dense"
+                            id="packageDescription"
+                            label="package Description"
+                            type="text"
+                            fullWidth
+                            variant="filled"
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button type='submit'>Subscribe</Button>
+                    </DialogActions>
+                </form>
             </Dialog>
         </div>
     );
 }
+
+
+// console.log(vaes);
