@@ -16,14 +16,14 @@ const utilities = {
     title: 'Utilities',
     type: 'group',
     children: [
-        {
-            id: 'util-typography',
-            title: 'Typography',
-            type: 'item',
-            url: '/utils/util-typography',
-            icon: icons.IconTypography,
-            breadcrumbs: false
-        },
+        // {
+        //     id: 'util-typography',
+        //     title: 'Typography',
+        //     type: 'item',
+        //     url: '/utils/util-typography',
+        //     icon: icons.IconTypography,
+        //     breadcrumbs: false
+        // },
         {
             id: 'util-color',
             title: 'Color',
@@ -32,36 +32,36 @@ const utilities = {
             icon: icons.IconPalette,
             breadcrumbs: false
         },
-        {
-            id: 'util-shadow',
-            title: 'Shadow',
-            type: 'item',
-            url: '/utils/util-shadow',
-            icon: icons.IconShadow,
-            breadcrumbs: false
-        },
-        {
-            id: 'icons',
-            title: 'Icons',
-            type: 'collapse',
-            icon: icons.IconWindmill,
-            children: [
-                {
-                    id: 'tabler-icons',
-                    title: 'Tabler Icons',
-                    type: 'item',
-                    url: '/icons/tabler-icons',
-                    breadcrumbs: false
-                },
-                {
-                    id: 'material-icons',
-                    title: 'Material Icons',
-                    type: 'item',
-                    url: '/icons/material-icons',
-                    breadcrumbs: false
-                }
-            ]
-        }
+        // {
+        //     id: 'util-shadow',
+        //     title: 'Shadow',
+        //     type: 'item',
+        //     url: '/utils/util-shadow',
+        //     icon: icons.IconShadow,
+        //     breadcrumbs: false
+        // },
+        // {
+        //     id: 'icons',
+        //     title: 'Icons',
+        //     type: 'collapse',
+        //     icon: icons.IconWindmill,
+        //     children: [
+        //         // {
+        //         //     id: 'tabler-icons',
+        //         //     title: 'Tabler Icons',
+        //         //     type: 'item',
+        //         //     url: '/icons/tabler-icons',
+        //         //     breadcrumbs: false
+        //         // },
+        //         // {
+        //         //     id: 'material-icons',
+        //         //     title: 'Material Icons',
+        //         //     type: 'item',
+        //         //     url: '/icons/material-icons',
+        //         //     breadcrumbs: false
+        //         // }
+        //     ]
+        // }
     ]
 };
 

@@ -11,6 +11,12 @@ import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
+import Popupfrom from '../Mui/Popupfrom';
+
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import NavigationIcon from '@mui/icons-material/Navigation';
+
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -51,6 +57,13 @@ const Dashboard = () => {
                         <PopularCard isLoading={isLoading} />
                     </Grid> */}
                 </Grid>
+                <Popupfrom/>
+                {/* <Fab
+                //  onClick={handleClickOpen}
+                sx={{ position: "fixed", bottom: 20, right: 16 }} variant="extended" size="medium" color="primary" aria-label="add">
+                <NavigationIcon sx={{ mr: 1 }} />
+                ADD PRODUCT
+            </Fab> */}
             </Grid>
         </Grid>
     );
