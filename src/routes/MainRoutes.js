@@ -15,7 +15,7 @@ const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialI
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
 
 //  routing
-// const SamplePage = Loadable(lazy(() => import('views/sample-page')));
+const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -51,10 +51,10 @@ const MainRoutes = {
         //     path: '/icons/material-icons',
         //     element: <UtilsMaterialIcons />
         // },
-        // {
-        //     path: '/sample-page',
-        //     element: <SamplePage />
-        // }
+        {
+            path: '/sample-page',
+            element: <SamplePage />
+        }
     ]
 };
 

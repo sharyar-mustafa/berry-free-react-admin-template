@@ -35,6 +35,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
+import {authenticatio} from '../../../../Firebase';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
@@ -46,8 +48,15 @@ const FirebaseLogin = ({ ...others }) => {
     const [checked, setChecked] = useState(true);
 
     const googleHandler = async () => {
-        console.error('Login');
-    };
+        let provider = new GoogleAuthProvider();
+        signInWithPopup(authenticatio, provider)
+        .then((re)=>{
+            console.log(re);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => {

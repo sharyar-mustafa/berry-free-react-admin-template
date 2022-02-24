@@ -16,14 +16,14 @@ const utilities = {
     title: 'Utilities',
     type: 'group',
     children: [
-        // {
-        //     id: 'util-typography',
-        //     title: 'Typography',
-        //     type: 'item',
-        //     url: '/utils/util-typography',
-        //     icon: icons.IconTypography,
-        //     breadcrumbs: false
-        // },
+        {
+            id: 'util-typography',
+            title: 'Typography',
+            type: 'item',
+            url: '/utils/util-typography',
+            icon: icons.IconTypography,
+            breadcrumbs: false
+        },
         {
             id: 'util-color',
             title: 'Color',

@@ -15,15 +15,7 @@ import { getDatabase, set, ref, push, onValue, child, get } from '../../../Fireb
 
 
 export default function FormDialog() {
-    const [state,setState] = React.useState({})
-
-    useEffect(() => {
-        const dbRef = ref(getDatabase());
-        onValue(child(dbRef, `packages/`), (snapshot) => {
-            console.log(snapshot.val());
-            snapshot.exists() && setState(snapshot.val())
-        })
-    }, [])
+  
 
     const [open, setOpen] = React.useState(false);
 
@@ -38,7 +30,7 @@ export default function FormDialog() {
     const formik = useFormik({
         initialValues: {
             name: '',
-            PakagePrice: "",
+            packagePrice: "",
             packageDescription: "",
 
         },
@@ -48,7 +40,7 @@ export default function FormDialog() {
             const db = getDatabase();
             push(ref(db, 'packages'), {
                 name: values.name,
-                PakagePrice: values.PakagePrice,
+                packagePrice: values.packagePrice,
                 packageDescription: values.packageDescription,
             });
 
@@ -58,7 +50,7 @@ export default function FormDialog() {
     const setValues = () => {
         formik.setValues({
             name: '',
-            PakagePrice: "",
+            packagePrice: "",
             packageDescription: "",
 
         });
@@ -80,11 +72,11 @@ export default function FormDialog() {
                         To subscribe to this website, please enter your email address here. We
                         will send updates occasionally.
                     </DialogContentText> */}
-                    {
+                    {/* {
                         Array.from(Object.entries(state)).map(([key, value]) => (
                                 <h1>{value.name}</h1>
                         ))
-                    }
+                    } */}
                         <TextField
                             // autoFocus
                             value={formik.values.name}
@@ -98,12 +90,12 @@ export default function FormDialog() {
                             variant="filled"
                         />
                         <TextField
-                            value={formik.values.PakagePrice}
+                            value={formik.values.packagePrice}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             autoFocus
                             margin="dense"
-                            id="PakagePrice"
+                            id="packagePrice"
                             label="Package Price"
                             type="number"
                             fullWidth
