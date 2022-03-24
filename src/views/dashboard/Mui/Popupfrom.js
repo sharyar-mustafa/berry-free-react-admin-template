@@ -7,17 +7,19 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Fab from '@mui/material/Fab';
 import NavigationIcon from '@mui/icons-material/Navigation';
-
+import { Storage } from '../../../Firebase';
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getDatabase, set, ref, push, onValue, child, get } from '../../../Firebase';
+import { getDatabase, set, ref, push, onValue, child, get, getStorage, imageRef,uploadBytes } from '../../../Firebase';
+
 
 
 
 export default function FormDialog() {
-  
+
 
     const [open, setOpen] = React.useState(false);
+    const [image, setImages] = React.useState(null);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -32,19 +34,25 @@ export default function FormDialog() {
             name: '',
             packagePrice: "",
             packageDescription: "",
-
         },
         onSubmit: async (values) => {
             console.log(values);
             handleClose();
             const db = getDatabase();
-            push(ref(db, 'packages'), {
-                name: values.name,
-                packagePrice: values.packagePrice,
-                packageDescription: values.packageDescription,
+            const storage = getStorage();
+            const storageRef = imageRef(storage, 'image');
+            
+            // 'file' comes from the Blob or File API
+            uploadBytes(storageRef, image).then((snapshot) => {
+              console.log('Uploaded a blob or file!', snapshot);
             });
+            // const downloadURL = await mountainImagesRef.getDownloadURL();
 
-
+            // const data = await push(ref(db, 'packages'), {
+            //     name: values.name,
+            //     packagePrice: values.packagePrice,
+            //     packageDescription: values.packageDescription,
+            // })
         }
     });
     const setValues = () => {
@@ -72,11 +80,24 @@ export default function FormDialog() {
                         To subscribe to this website, please enter your email address here. We
                         will send updates occasionally.
                     </DialogContentText> */}
-                    {/* {
+                        {/* {
                         Array.from(Object.entries(state)).map(([key, value]) => (
                                 <h1>{value.name}</h1>
                         ))
                     } */}
+                        <TextField
+                            // autoFocus
+                            // value={formik.values.name}
+                            // onChange={formik.handleChange}
+                            // onBlur={formik.handleBlur}
+                            margin="dense"
+                            id="Image"
+                            // label="Package Name"
+                            onChange={(e) => setImages(e.target.files[0])}
+                            type="file"
+                            fullWidth
+                            variant="filled"
+                        />
                         <TextField
                             // autoFocus
                             value={formik.values.name}
